@@ -1,5 +1,5 @@
 # Karma configuration
-# Generated on Wed Jun 10 2015 17:32:58 GMT+0900 (JST)
+# Generated on Wed Jun 10 2015 17:43:39 GMT+0900 (JST)
 
 module.exports = (config) ->
   config.set
@@ -10,11 +10,12 @@ module.exports = (config) ->
 
     # frameworks to use
     # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha']
+    frameworks: ['mocha', 'browserify']
 
 
     # list of files / patterns to load in the browser
     files: [
+      './*Spec.coffee'
     ]
 
 
@@ -26,13 +27,14 @@ module.exports = (config) ->
     # preprocess matching files before serving them to the browser
     # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      './*Spec.coffee': ['browserify']
     }
 
 
     # test results reporter to use
     # possible values: 'dots', 'progress'
     # available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress']
+    reporters: ['dots']
 
 
     # web server port
@@ -59,9 +61,15 @@ module.exports = (config) ->
 
     # start these browsers
     # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome']
+    browsers: ['PhantomJS']
 
 
     # Continuous Integration mode
     # if true, Karma captures browsers, runs the tests and exits
     singleRun: false
+
+
+    browserify:
+      debug: true
+      transform: ['coffeeify',  'espowerify']
+      extensions: ['.coffee']
